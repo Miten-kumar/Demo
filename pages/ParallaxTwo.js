@@ -8,23 +8,36 @@ import imageFour from "/public/night.png";
 import Logo from "/logo.svg";
 import LogoX from "/lodoX.svg";
 import { MDBCard, MDBCardBody, MDBCardText } from "mdb-react-ui-kit";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 const App = () => {
   const [scrollY, setScrollY] = useState(0);
   const [show, setShow] = useState(false);
-
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const handleWindowResize = () => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  };
+  const headingX = useTransform(cursorX, [0, width], [50, -80]);
+  const headingY = useTransform(cursorY, [0, height], [50, -80]);
+  const handleMouseMove = (event) => {
+    cursorX.set(event.clientX);
+    cursorY.set(event.clientY);
+  };
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
       setScrollY(scrollTop);
       const scrollThreshold = 250;
       setShow(scrollTop > scrollThreshold);
-      // const scrollPosition = window.scrollY;
-      // const elementPosition = document.getElementById("MyElement")?.offsetTop;
-      // console.log(elementPosition);
     };
+    handleWindowResize();
+    window.addEventListener("resize", handleWindowResize);
     window.addEventListener("scroll", handleScroll);
     return () => {
+      window.removeEventListener("resize", handleWindowResize);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -45,6 +58,7 @@ const App = () => {
     to: { opacity: 2, transform: `translateY(${-scrollY * 2}px)` },
     config: { mass: 5, tension: 200, friction: 30 },
   });
+
   return (
     <>
       <div className="gradient">
@@ -62,8 +76,9 @@ const App = () => {
             </animated.div>
           ))}
         </animated.div>
+
         <div className="block inset-0 items-center justify-center">
-          <animated.h1
+          <motion.h1
             className="font-thin center-heading text-black text-6xl font-serif"
             style={headingProps}
           >
@@ -74,13 +89,19 @@ const App = () => {
               width={150}
               height={310}
             />
-          </animated.h1>{" "}
-          <animated.h1
+          </motion.h1>
+          <motion.h1
             className=" flex mt-32 animate-pulse   items-center justify-center  text-9xl center-heading text-green-700  font-serif "
-            style={headingProps}
+            style={{
+              x: headingX,
+              y: headingY,
+            }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
+            transition={{ duration: 0.4 }}
+            onMouseMove={handleMouseMove}
           >
             Liquid0x
-          </animated.h1>
+          </motion.h1>
           <animated.h1 className="" style={headingPropsX}>
             <Image
               src={LogoX}
@@ -99,8 +120,9 @@ const App = () => {
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: show ? 1 : 0, x: show ? 0 : -500 }}
             transition={{ duration: 0.7 }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
           >
-            <MDBCard className="m-10">
+            <MDBCard className="m-10 p-5">
               <MDBCardText className=" flex items-center justify-center mt-2">
                 Good afternoon
               </MDBCardText>
@@ -115,6 +137,7 @@ const App = () => {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: -100 }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
             animate={{
               opacity: show ? 1 : 0,
               y: show ? 0 : -500,
@@ -126,7 +149,7 @@ const App = () => {
             }}
             transition={{ duration: 0.4 }}
           >
-            <MDBCard className="m-10">
+            <MDBCard className="m-10 p-5">
               <MDBCardText className="flex items-center justify-center mt-2">
                 Good Evening
               </MDBCardText>
@@ -146,14 +169,11 @@ const App = () => {
 
           <motion.div
             initial={{ opacity: 0, x: -100 }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
             animate={{ opacity: show ? 1 : 0, x: show ? 0 : 500 }}
             transition={{ duration: 0.8 }}
-            style={{
-              transformStyle: "preserve-3d",
-              transform: "perspective(800px)",
-            }}
           >
-            <MDBCard className="m-10">
+            <MDBCard className="m-10 p-5">
               <MDBCardText className="flex items-center justify-center mt-2">
                 Good Night
               </MDBCardText>
@@ -175,10 +195,11 @@ const App = () => {
         <div className="flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
             animate={{ opacity: show ? 1 : 0, x: show ? 0 : 650 }}
             transition={{ duration: 0.8 }}
           >
-            <MDBCard className="m-10">
+            <MDBCard className="m-10 p-5">
               <MDBCardText className="flex items-center justify-center mt-2">
                 Good Evening
               </MDBCardText>
@@ -197,6 +218,7 @@ const App = () => {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: -100 }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
             animate={{
               opacity: show ? 1 : 0,
               y: show ? 0 : -500,
@@ -208,7 +230,7 @@ const App = () => {
             }}
             transition={{ duration: 0.7 }}
           >
-            <MDBCard className="m-10">
+            <MDBCard className="m-10  p-5">
               <MDBCardText className="flex items-center justify-center mt-2">
                 Good Night
               </MDBCardText>
@@ -227,11 +249,12 @@ const App = () => {
           </motion.div>{" "}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
+            whileHover={{ scale: [null, 1.1, 1.1] }}
             animate={{ opacity: show ? 1 : 0, x: show ? 0 : -500 }}
             transition={{ duration: 0.8 }}
           >
             {" "}
-            <MDBCard className="m-10">
+            <MDBCard className="m-10 p-5 ">
               <MDBCardText className=" flex items-center justify-center mt-2">
                 Good afternoon
               </MDBCardText>
