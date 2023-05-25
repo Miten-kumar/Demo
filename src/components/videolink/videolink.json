@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_videolink_videolinks",
+  "info": {
+    "displayName": "videolink"
+  },
+  "options": {},
+  "attributes": {
+    "videolink": {
+      "type": "string"
+    },
+    "video": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

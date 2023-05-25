@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "emailsendings",
+  "info": {
+    "singularName": "emailsending",
+    "pluralName": "emailsendings",
+    "displayName": "Emailsending"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "text": {
+      "displayName": "text",
+      "type": "component",
+      "repeatable": false,
+      "component": "text.text"
+    },
+    "videolink": {
+      "displayName": "videolink",
+      "type": "component",
+      "repeatable": false,
+      "component": "videolink.videolink"
+    },
+    "Questions": {
+      "displayName": "Questions",
+      "type": "component",
+      "repeatable": true,
+      "component": "questions.questions"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_questions_questions",
+  "info": {
+    "displayName": "Questions"
+  },
+  "options": {},
+  "attributes": {
+    "Questions": {
+      "type": "richtext"
+    }
+  }
+}
